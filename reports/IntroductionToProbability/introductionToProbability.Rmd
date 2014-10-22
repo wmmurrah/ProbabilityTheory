@@ -1,0 +1,155 @@
+---
+title: "Introduction to Probability"
+author: "William Murrah"
+csl: apa.csl
+date: "10/17/2014"
+bibliography: introProb.bib
+output: 
+   pdf_document:
+      includes:
+         in_header: header.tex
+---
+
+```{r opts}
+library(knitr)
+opts_knit$set(root.dir='../../')
+opts_chunk$set(comment=NA, prompt=TRUE)
+```
+
+```{r data}
+
+```
+
+# Notation and Symbols
+
+This uses [@lynch2007introduction]. And [@ipsur2013].
+
+# What is Probability?
+
+There are at least two views about what probability is. 
+
+## An adequate set of operations 
+
+
+### Conjunction
+
+The logical product, or conjunction, indicates that both $A$ and $B$ are true, and is expressed as:
+
+$$AB.$$
+
+In R conjunction can be coded with the logical *and* operator (`&`):
+```{r conjunction, eval=FALSE}
+
+A & B 
+
+```
+
+### Disjunction
+
+The logical sum, or disjunction, indicates that at least one of $A$ or $B$ is true, and is expressed as:
+
+$$A + B.$$
+
+In R, disjunction is coded with the logical *or* operator:
+```{r disjunction, eval=FALSE}
+
+A | B
+```
+
+### Negation
+
+The logical denial, or negation, of a proposition is expressed with a bar over the symbol. For example, the negation of $A$ is expressed as:
+
+$$\bar{A}$$
+
+which indicates that proposition $A$ is false.
+
+In R, logical negation is coded using the exclamation point in front of the object:
+```{r negation, eval=FALSE}
+
+!A
+```
+
+## Some trivial basic identities
+
+First we initialize the truth of $A$, $B$ and $C$ in R:
+
+```{r initAB}
+A <- TRUE
+B <- TRUE
+C <- TRUE
+```
+
+### Idempotence
+
+$AA = A$ 
+
+$A + A = A$
+```{r idempotence}
+(A&A )== A
+(A | A) == A
+```
+
+### Commutativity
+
+$AB = BA$
+
+$A + B = B + A$
+
+```{r commitativity}
+(A&B) ==( B&A)
+(A | B) ==( B | A)
+```
+
+### Associativity
+
+$A(BC) = (AB)C = ABC$
+
+$A + (B + C) = (A + B) + C = A + B + C$
+
+```{r associativity}
+(A&(B&C)) == ((A&B)&C == A&B&C)
+(A | (B | C)) == ((A | B) | C == A | B | C)
+```
+
+### Distributivity
+
+$A(B + C) = AB + AC$
+
+$A + (BC) = (A + B)(A + C)$
+```{r distributivity}
+(A&(B | C)) == (A&B | A&C)
+(A | (B&C)) == ((A | C)&(A | C))
+```
+
+### Duality
+
+If $C = AB$, then $\bar{C} = \bar{A} + \bar{B}$
+
+If $D = A + B$, then $\bar{D} = \bar{A}\bar{B}$
+```{r duality}
+C  <-( A&B) 
+!C == (!A | !B)
+D <- A | B
+!D == (!A&!B) # NOTE: the parentheses are needed!
+```
+
+### Implication
+
+The expression
+
+$$A \implies {B}$$
+
+can be read as '$A$ implies $B$'. This statement does not indicate that either proposition is true, but instead simply means that $A\bar{B}$ is false or equivalently, $(\bar{A} + B)$ is true. This can be written as a logical equation as:
+
+$$A = AB,$$
+
+and coded in R as:
+```{r implies, eval=FALSE}
+
+A == A&B
+```
+
+Discuss logical and numerical '='. 
+
+# References
